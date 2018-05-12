@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180512 19:08:57.614" generator="Robot 3.0.2 (Python 2.7.14 on win32)">
+<suite source="C:\Users\user\PycharmProjects\DatabaseAutomationTestingFramework\MainTestFile.Robot" id="s1" name="MainTestFile">
+<test id="s1-t1" name="Connect &amp; Validate databses">
+<kw name="get TestCaseID Content" library="TestInputData">
+<arguments>
+<arg>${FILEPATH}</arg>
+</arguments>
+<assign>
+<var>${TestCaseID}</var>
+</assign>
+<kw name="Get TestCaseID" library="ReadExcelFile">
+<arguments>
+<arg>${FILEPATH}</arg>
+</arguments>
+<assign>
+<var>${DATA}</var>
+</assign>
+<msg timestamp="20180512 19:08:58.544" level="INFO">${DATA} = 0    1
+1    2
+Name: Test Case ID, dtype: int64</msg>
+<status status="PASS" endtime="20180512 19:08:58.544" starttime="20180512 19:08:58.466"></status>
+</kw>
+<msg timestamp="20180512 19:08:58.560" level="INFO">${TestCaseID} = 0    1
+1    2
+Name: Test Case ID, dtype: int64</msg>
+<status status="PASS" endtime="20180512 19:08:58.560" starttime="20180512 19:08:58.466"></status>
+</kw>
+<kw name="get Database1Query Content" library="TestInputData">
+<arguments>
+<arg>${FILEPATH}</arg>
+</arguments>
+<assign>
+<var>${DB1Query}</var>
+</assign>
+<kw name="Get Database1Query" library="ReadExcelFile">
+<arguments>
+<arg>${FILEPATH}</arg>
+</arguments>
+<assign>
+<var>${DATA}</var>
+</assign>
+<msg timestamp="20180512 19:08:58.575" level="INFO">${DATA} = 0                 SELECT * FROM public."Emp";
+1    SELECT "First Name"\n FROM public."Emp";
+Name: Database1 Query, dtype: object</msg>
+<status status="PASS" endtime="20180512 19:08:58.575" starttime="20180512 19:08:58.560"></status>
+</kw>
+<msg timestamp="20180512 19:08:58.575" level="INFO">${DB1Query} = 0                 SELECT * FROM public."Emp";
+1    SELECT "First Name"\n FROM public."Emp";
+Name: Database1 Query, dtype: object</msg>
+<status status="PASS" endtime="20180512 19:08:58.575" starttime="20180512 19:08:58.560"></status>
+</kw>
+<kw name="get Database1Query Content" library="TestInputData">
+<arguments>
+<arg>${FILEPATH}</arg>
+</arguments>
+<assign>
+<var>${DB2Query}</var>
+</assign>
+<kw name="Get Database1Query" library="ReadExcelFile">
+<arguments>
+<arg>${FILEPATH}</arg>
+</arguments>
+<assign>
+<var>${DATA}</var>
+</assign>
+<msg timestamp="20180512 19:08:58.607" level="INFO">${DATA} = 0                 SELECT * FROM public."Emp";
+1    SELECT "First Name"\n FROM public."Emp";
+Name: Database1 Query, dtype: object</msg>
+<status status="PASS" endtime="20180512 19:08:58.607" starttime="20180512 19:08:58.575"></status>
+</kw>
+<msg timestamp="20180512 19:08:58.607" level="INFO">${DB2Query} = 0                 SELECT * FROM public."Emp";
+1    SELECT "First Name"\n FROM public."Emp";
+Name: Database1 Query, dtype: object</msg>
+<status status="PASS" endtime="20180512 19:08:58.607" starttime="20180512 19:08:58.575"></status>
+</kw>
+<kw type="for" name="${DB1Element} IN [ @{DB1Query} ]">
+<kw type="foritem" name="${DB1Element} = SELECT * FROM public.&quot;Emp&quot;;">
+<kw name="Connect To Database" library="DatabaseLibrary">
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to</doc>
+<arguments>
+<arg>psycopg2</arg>
+<arg>${DBName1}</arg>
+<arg>${DBUser}</arg>
+<arg>${DBPass}</arg>
+<arg>${DBHost}</arg>
+<arg>${DBPort}</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.638" level="INFO">Connecting using : psycopg2.connect(database=DatabaseAutomation1, user=postgres, password=PavanD605, host=localhost, port=5432) </msg>
+<status status="PASS" endtime="20180512 19:08:58.685" starttime="20180512 19:08:58.622"></status>
+</kw>
+<kw name="Query" library="DatabaseLibrary">
+<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional</doc>
+<arguments>
+<arg>${DB1Element}</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<msg timestamp="20180512 19:08:58.685" level="INFO">Executing : Query  |  SELECT * FROM public."Emp"; </msg>
+<msg timestamp="20180512 19:08:58.685" level="INFO">${output} = [('Ameya', 'Natu', 'IT'), ('Pooja', 'Pant', 'HR')]</msg>
+<status status="PASS" endtime="20180512 19:08:58.685" starttime="20180512 19:08:58.685"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.685" level="INFO">[('Ameya', 'Natu', 'IT'), ('Pooja', 'Pant', 'HR')]</msg>
+<status status="PASS" endtime="20180512 19:08:58.685" starttime="20180512 19:08:58.685"></status>
+</kw>
+<kw name="Append To Csv File" library="CSVLibrary">
+<doc>This keyword will append data to a new or existing CSV file.</doc>
+<arguments>
+<arg>CSVFile1.csv</arg>
+<arg>${output}</arg>
+</arguments>
+<status status="PASS" endtime="20180512 19:08:58.685" starttime="20180512 19:08:58.685"></status>
+</kw>
+<kw name="Disconnect From Database" library="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<msg timestamp="20180512 19:08:58.700" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" endtime="20180512 19:08:58.700" starttime="20180512 19:08:58.685"></status>
+</kw>
+<status status="PASS" endtime="20180512 19:08:58.700" starttime="20180512 19:08:58.622"></status>
+</kw>
+<kw type="foritem" name="${DB1Element} = SELECT &quot;First Name&quot;&#10; FROM public.&quot;Emp&quot;;">
+<kw name="Connect To Database" library="DatabaseLibrary">
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to</doc>
+<arguments>
+<arg>psycopg2</arg>
+<arg>${DBName1}</arg>
+<arg>${DBUser}</arg>
+<arg>${DBPass}</arg>
+<arg>${DBHost}</arg>
+<arg>${DBPort}</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.700" level="INFO">Connecting using : psycopg2.connect(database=DatabaseAutomation1, user=postgres, password=PavanD605, host=localhost, port=5432) </msg>
+<status status="PASS" endtime="20180512 19:08:58.763" starttime="20180512 19:08:58.700"></status>
+</kw>
+<kw name="Query" library="DatabaseLibrary">
+<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional</doc>
+<arguments>
+<arg>${DB1Element}</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<msg timestamp="20180512 19:08:58.763" level="INFO">Executing : Query  |  SELECT "First Name"
+ FROM public."Emp"; </msg>
+<msg timestamp="20180512 19:08:58.763" level="INFO">${output} = [('Ameya',), ('Pooja',)]</msg>
+<status status="PASS" endtime="20180512 19:08:58.763" starttime="20180512 19:08:58.763"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.763" level="INFO">[('Ameya',), ('Pooja',)]</msg>
+<status status="PASS" endtime="20180512 19:08:58.763" starttime="20180512 19:08:58.763"></status>
+</kw>
+<kw name="Append To Csv File" library="CSVLibrary">
+<doc>This keyword will append data to a new or existing CSV file.</doc>
+<arguments>
+<arg>CSVFile1.csv</arg>
+<arg>${output}</arg>
+</arguments>
+<status status="PASS" endtime="20180512 19:08:58.763" starttime="20180512 19:08:58.763"></status>
+</kw>
+<kw name="Disconnect From Database" library="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<msg timestamp="20180512 19:08:58.763" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" endtime="20180512 19:08:58.763" starttime="20180512 19:08:58.763"></status>
+</kw>
+<status status="PASS" endtime="20180512 19:08:58.763" starttime="20180512 19:08:58.700"></status>
+</kw>
+<status status="PASS" endtime="20180512 19:08:58.763" starttime="20180512 19:08:58.607"></status>
+</kw>
+<kw type="for" name="${DB2Element} IN [ @{DB2Query} ]">
+<kw type="foritem" name="${DB2Element} = SELECT * FROM public.&quot;Emp&quot;;">
+<kw name="Connect To Database" library="DatabaseLibrary">
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to</doc>
+<arguments>
+<arg>psycopg2</arg>
+<arg>${DBName2}</arg>
+<arg>${DBUser}</arg>
+<arg>${DBPass}</arg>
+<arg>${DBHost}</arg>
+<arg>${DBPort}</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.763" level="INFO">Connecting using : psycopg2.connect(database=DatabaseAutomation2, user=postgres, password=PavanD605, host=localhost, port=5432) </msg>
+<status status="PASS" endtime="20180512 19:08:58.825" starttime="20180512 19:08:58.763"></status>
+</kw>
+<kw name="Query" library="DatabaseLibrary">
+<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional</doc>
+<arguments>
+<arg>${DB2Element}</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<msg timestamp="20180512 19:08:58.825" level="INFO">Executing : Query  |  SELECT * FROM public."Emp"; </msg>
+<msg timestamp="20180512 19:08:58.841" level="INFO">${output} = [('Ameya', 'Natu', 'IT')]</msg>
+<status status="PASS" endtime="20180512 19:08:58.841" starttime="20180512 19:08:58.825"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.841" level="INFO">[('Ameya', 'Natu', 'IT')]</msg>
+<status status="PASS" endtime="20180512 19:08:58.841" starttime="20180512 19:08:58.841"></status>
+</kw>
+<kw name="Append To Csv File" library="CSVLibrary">
+<doc>This keyword will append data to a new or existing CSV file.</doc>
+<arguments>
+<arg>CSVFile2.csv</arg>
+<arg>${output}</arg>
+</arguments>
+<status status="PASS" endtime="20180512 19:08:58.841" starttime="20180512 19:08:58.841"></status>
+</kw>
+<kw name="Disconnect From Database" library="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<msg timestamp="20180512 19:08:58.841" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" endtime="20180512 19:08:58.841" starttime="20180512 19:08:58.841"></status>
+</kw>
+<status status="PASS" endtime="20180512 19:08:58.841" starttime="20180512 19:08:58.763"></status>
+</kw>
+<kw type="foritem" name="${DB2Element} = SELECT &quot;First Name&quot;&#10; FROM public.&quot;Emp&quot;;">
+<kw name="Connect To Database" library="DatabaseLibrary">
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to</doc>
+<arguments>
+<arg>psycopg2</arg>
+<arg>${DBName2}</arg>
+<arg>${DBUser}</arg>
+<arg>${DBPass}</arg>
+<arg>${DBHost}</arg>
+<arg>${DBPort}</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.841" level="INFO">Connecting using : psycopg2.connect(database=DatabaseAutomation2, user=postgres, password=PavanD605, host=localhost, port=5432) </msg>
+<status status="PASS" endtime="20180512 19:08:58.919" starttime="20180512 19:08:58.841"></status>
+</kw>
+<kw name="Query" library="DatabaseLibrary">
+<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional</doc>
+<arguments>
+<arg>${DB2Element}</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<msg timestamp="20180512 19:08:58.919" level="INFO">Executing : Query  |  SELECT "First Name"
+ FROM public."Emp"; </msg>
+<msg timestamp="20180512 19:08:58.919" level="INFO">${output} = [('Ameya',)]</msg>
+<status status="PASS" endtime="20180512 19:08:58.919" starttime="20180512 19:08:58.919"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.919" level="INFO">[('Ameya',)]</msg>
+<status status="PASS" endtime="20180512 19:08:58.919" starttime="20180512 19:08:58.919"></status>
+</kw>
+<kw name="Append To Csv File" library="CSVLibrary">
+<doc>This keyword will append data to a new or existing CSV file.</doc>
+<arguments>
+<arg>CSVFile2.csv</arg>
+<arg>${output}</arg>
+</arguments>
+<status status="PASS" endtime="20180512 19:08:58.919" starttime="20180512 19:08:58.919"></status>
+</kw>
+<kw name="Disconnect From Database" library="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<msg timestamp="20180512 19:08:58.919" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" endtime="20180512 19:08:58.919" starttime="20180512 19:08:58.919"></status>
+</kw>
+<status status="PASS" endtime="20180512 19:08:58.919" starttime="20180512 19:08:58.841"></status>
+</kw>
+<status status="PASS" endtime="20180512 19:08:58.919" starttime="20180512 19:08:58.763"></status>
+</kw>
+<kw name="Diff Files" library="DiffLibrary">
+<doc>Diff two text files</doc>
+<arguments>
+<arg>CSVFile1.csv</arg>
+<arg>CSVFile2.csv</arg>
+<arg>fail=false</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.919" level="INFO">file1: CSVFile1.csv</msg>
+<msg timestamp="20180512 19:08:58.919" level="INFO">file2: CSVFile2.csv</msg>
+<msg timestamp="20180512 19:08:58.919" level="INFO">c:\python27\lib\site-packages\DiffLibrary\bin\diff\diff.exe --strip-trailing-cr  "CSVFile1.csv" "CSVFile2.csv"</msg>
+<msg timestamp="20180512 19:08:58.997" level="INFO">differences found between CSVFile1.csv and CSVFile2.csv</msg>
+<msg timestamp="20180512 19:08:58.997" level="INFO">2d1
+&lt; Pooja,Pant,HR
+4d2
+&lt; Pooja
+6d3
+&lt; Pooja,Pant,HR
+8d4
+&lt; Pooja</msg>
+<status status="PASS" endtime="20180512 19:08:58.997" starttime="20180512 19:08:58.919"></status>
+</kw>
+<kw name="Remove File" library="OperatingSystem">
+<doc>Removes a file with the given path.</doc>
+<arguments>
+<arg>CSVFile1.csv</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.997" html="yes" level="INFO">Removed file '&lt;a href="file://C:\Users\user\PycharmProjects\DatabaseAutomationTestingFramework\CSVFile1.csv"&gt;C:\Users\user\PycharmProjects\DatabaseAutomationTestingFramework\CSVFile1.csv&lt;/a&gt;'.</msg>
+<status status="PASS" endtime="20180512 19:08:58.997" starttime="20180512 19:08:58.997"></status>
+</kw>
+<kw name="Remove File" library="OperatingSystem">
+<doc>Removes a file with the given path.</doc>
+<arguments>
+<arg>CSVFile2.csv</arg>
+</arguments>
+<msg timestamp="20180512 19:08:58.997" html="yes" level="INFO">Removed file '&lt;a href="file://C:\Users\user\PycharmProjects\DatabaseAutomationTestingFramework\CSVFile2.csv"&gt;C:\Users\user\PycharmProjects\DatabaseAutomationTestingFramework\CSVFile2.csv&lt;/a&gt;'.</msg>
+<status status="PASS" endtime="20180512 19:08:58.997" starttime="20180512 19:08:58.997"></status>
+</kw>
+<status status="PASS" endtime="20180512 19:08:58.997" critical="yes" starttime="20180512 19:08:58.466"></status>
+</test>
+<status status="PASS" endtime="20180512 19:08:59.012" starttime="20180512 19:08:57.632"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="MainTestFile" pass="1">MainTestFile</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
